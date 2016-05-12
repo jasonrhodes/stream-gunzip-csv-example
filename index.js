@@ -1,29 +1,16 @@
-'use strict';
+'use strict'
 
 let zlib = require('zlib')
 let http = require('http')
 let csv = require('csv-parser')
 let json = require('JSONStream')
 
-/** The fake webserver */
-
-let fs = require('fs')
-
-http.createServer((req, res) => {
-  fs.readFile(__dirname + req.url, (err, buf) => {
-    res.writeHead(200, { 'Content-Encoding': 'gzip' })
-    zlib.gzip(buf, (err, zipped) => {
-      res.end(zipped)
-    })
-  })
-}).listen(8080)
-
-/** End of the server */
-
+process.env.CSVPORT = 8080
+require('./server')
 
 http.get({
   host: 'localhost',
-  port: 8080,
+  port: process.env.CSVPORT,
   path: '/preview.csv',
   auth: 'user:password'
 }, (res) => {
