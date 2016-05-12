@@ -3,7 +3,6 @@
 let zlib = require('zlib')
 let http = require('http')
 let csv = require('csv-parser')
-let json = require('JSONStream')
 
 process.env.CSVPORT = 8080
 require('./server')
